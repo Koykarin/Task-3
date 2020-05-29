@@ -1,0 +1,15 @@
+auto num: tst
+brand: tst
+FIO: tst
+auto num: b835lb
+brand: mitsubisi
+FIO: Clfrf Mgtp Zlfrg
+auto num: g975jh
+brand: mitsubisi
+FIO: Pbyw Wges Noife
+auto num: o004rr
+brand: mitsubisi
+FIO: Zfpisw Ghtsaf Lftwa
+auto num: v465af
+brand: mitsubisi
+FIO: Jfod Obgvb Fktfd
