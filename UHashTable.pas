@@ -84,7 +84,7 @@ end;
 function THashTable.IndexOf(key: TKey; var a: TIndex; var prev: TIndex): boolean;
 var
   a0: TIndex;
-  i, d: integer;
+  i: integer;
   Ok, stop: boolean;
 begin
   a0:= TInfo.HashFunction(key);
@@ -92,7 +92,6 @@ begin
   a:= a0;
   Ok:= false;
   stop:= false;
-  d:= 0;
   repeat
     case FTable[a].state of
       csFree:
@@ -111,7 +110,6 @@ begin
       end;
       csDel:
       begin
-        d:= a;
         a:= NextCell(a, i);
       end;
     end;
@@ -170,7 +168,6 @@ end;
 procedure THashTable.LoadFromFile(Filename:string);
 var
   f:TextFile;
-  i:Integer;
   newInfo: Tinfo;
 begin
   Clear;

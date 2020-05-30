@@ -1,7 +1,5 @@
-{
- Задан набор записей следующей структуры: номер автомобиля, его марка,
- ФИО владельца. По номеру автомобиля найти остальные сведения
-}
+{ Задан набор записей следующей структуры: номер автомобиля, его марка,
+ ФИО владельца. По номеру автомобиля найти остальные сведения}
 unit Hash_Main;
 
 interface
@@ -21,11 +19,11 @@ type
     miSave: TMenuItem;
     miSaveAs: TMenuItem;
     miClose: TMenuItem;
-    add1: TMenuItem;
+    miEdit: TMenuItem;
     miFind: TMenuItem;
     miDel: TMenuItem;
     miClear: TMenuItem;
-    process: TMenuItem;
+    miProcess: TMenuItem;
     miTask: TMenuItem;
     miAdd: TMenuItem;
     OpenDialog: TOpenDialog;
@@ -60,8 +58,12 @@ implementation
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   OpenDialog.InitialDir:= GetCurrentDir;
-  SaveDialog.InitialDir:= GetCurrentDir; 
+  SaveDialog.InitialDir:= GetCurrentDir;
   HashTable:= nil;
+  miEdit.Enabled:= false;
+  miProcess.Enabled:= false;
+  miSave.Enabled:= false;
+  miSaveAs.Enabled:= false;
 end;
 
 function TFrmMain.CanCloseFile: boolean;
@@ -87,6 +89,7 @@ end;
 
 procedure TFrmMain.New(Sender: TObject);
 begin
+  miEdit.Enabled:= true;
   if CanCloseFile then
     HashTable:= THashTableGUI.Create(StrGrid);
 end;
@@ -95,11 +98,9 @@ procedure TFrmMain.Add(Sender: TObject);
 var
   newInfo: TInfo;
   addForm: TAddForm;
-  i: integer;
 begin
   addForm:= TAddForm.Create(FrmMain);
   newInfo:= TInfo.CreateEmpty;
-
   addForm.ShowModal;
   if addForm.Correct then
     begin
@@ -107,16 +108,21 @@ begin
       newInfo.Mark:= addForm.Mark;
       newInfo.FIO:= addForm.FIO;
       HashTable.Add(newInfo);
-    end;
+      miProcess.Enabled:= true;
+      miSave.Enabled:= true;
+      miSaveAs.Enabled:= true;
+    end
+  else
+    ShowMessage('некорректный ввод');
 end;
 
 procedure TFrmMain.Delete(Sender: TObject);
 var
-  key: Integer;
   wrd: string;
 begin
   InputQuery('Ввод данных', 'Введите номер машины', wrd);
   HashTable.Delete(wrd);
+
 end;
 
 procedure TFrmMain.Clear(Sender: TObject);
@@ -126,7 +132,10 @@ end;
 
 procedure TFrmMain.Save(Sender: TObject);
 begin
+  if HashTable.FileName<> '' then
     HashTable.SaveToFile(HashTable.FileName)
+  else
+    ShowMessage('имя файла пусто!');
 end;
 
 procedure TFrmMain.Open(Sender: TObject);
@@ -136,6 +145,10 @@ begin
     begin
       HashTable.LoadFromFile(openDialog.FileName);
       HashTable.FileName:= openDialog.FileName;
+      miEdit.Enabled:= true;
+      miProcess.Enabled:= true;
+      miSave.Enabled:= true;
+      miSaveAs.Enabled:= true;
     end;
 end;
 
@@ -149,7 +162,6 @@ end;
 procedure TFrmMain.Find(Sender: TObject);
 var
   key: TKey;
-  wrd: string;
 begin
   InputQuery('Ввод данных', 'Введите номер машины', key);
   if HashTable.Find(key) then
@@ -165,10 +177,7 @@ end;
 
 procedure TFrmMain.Task(Sender: TObject);
 var
-  wrd: string;
   key: TKey;
-  mark: integer;
-  count, i: integer;
   a, prev: TIndex;
   form: TAddForm;
 begin

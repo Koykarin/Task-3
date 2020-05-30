@@ -1,10 +1,11 @@
 object FrmMain: TFrmMain
   Left = 648
   Top = 249
+  Align = alCustom
   BorderStyle = bsSingle
   Caption = 'Hash'
-  ClientHeight = 317
-  ClientWidth = 350
+  ClientHeight = 314
+  ClientWidth = 359
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,8 +20,9 @@ object FrmMain: TFrmMain
   object StrGrid: TStringGrid
     Left = 0
     Top = 0
-    Width = 345
-    Height = 313
+    Width = 359
+    Height = 314
+    Align = alClient
     ColCount = 3
     DefaultColWidth = 110
     DefaultRowHeight = 25
@@ -56,7 +58,7 @@ object FrmMain: TFrmMain
         OnClick = Close
       end
     end
-    object add1: TMenuItem
+    object miEdit: TMenuItem
       Caption = 'edit'
       object miAdd: TMenuItem
         Caption = 'add'
@@ -78,7 +80,7 @@ object FrmMain: TFrmMain
         OnClick = Clear
       end
     end
-    object process: TMenuItem
+    object miProcess: TMenuItem
       Caption = 'process'
       object miTask: TMenuItem
         Caption = 'task'

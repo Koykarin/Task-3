@@ -54,8 +54,6 @@ begin
 end;
 
 constructor TInfo.CreateEmpty;
-var
-  i: integer;
 begin
   FNumber:= '';
   FMark:= '';
@@ -76,8 +74,6 @@ end;
 
 //проверка на равенство двух объектов
 function TInfo.IsEqual(AInfo: TInfo): boolean;
-var
-  i: integer;
 begin
   result:= (FNumber = AInfo.Number) and
            (FMark = AInfo.Mark) and
@@ -87,8 +83,6 @@ end;
 
 
 function TInfo.Copy: TInfo;
-var
-  i: integer;
 begin
   result.Number:= FNumber;
   result.Mark:= FMark;
@@ -97,8 +91,6 @@ end;
 
 
 procedure TInfo.SaveToFile(var f: TextFile);
-var
-  i: integer;
 begin
   writeln(f, 'auto num: ', FNumber);
   writeln(f, 'brand: ', FMark);
@@ -118,7 +110,6 @@ end;
 function TInfo.LoadFromFile(var f: TextFile): boolean;
 var
   buf: string;
-  i: integer;
 begin
   readln(f, buf);
   result:= buf <> '';
